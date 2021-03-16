@@ -1,0 +1,24 @@
+# Install ubuntu
+FROM ubuntu:18.04
+
+# Install java
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get -y install default-jre-headless && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create folder
+RUN cd home $$ mkdir b4r-db
+
+# Switch account
+USER root
+
+# Copy b4r-db folder from local to image
+COPY b4r-db /home/b4r-db/
+
+# Set path
+ENV PATH=$PATH:/home/b4r-db/
+
+# Set workdir
+WORKDIR /home/b4r-db/
