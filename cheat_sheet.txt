@@ -1,0 +1,17 @@
+# Pull docker image
+docker pull <image_name:v.x>
+Example:
+    docker pull postgres:11.6
+
+# Build an image from a specific Docker file
+docker build -t <image_name:v.x> -f <docker-filename> .
+Example:
+    docker build -t b4r-db:21.03 -f Dockerfile-liquibase .
+
+# Enter inside an image using bash
+docker run -it --rm <image_name:v.x> bash
+Example:
+    docker run -it --rm b4r-db:21.03 bash
+
+# Build a container from Pg 11.6
+    docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -e PGDATA=/var/lib/postgresql/data/pgdata -v /custom/mount:/var/lib/postgresql/data -p 5432:5432 postgres:11.6
