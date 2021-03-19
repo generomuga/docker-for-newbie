@@ -1,17 +1,58 @@
 # Pull docker image
-docker pull <image_name:v.x>
-Example:
-    docker pull postgres:11.6
+    docker pull <image_name:v.x>
+        Example:
+            docker pull postgres:11.6
+
+# Build an image from the default Docker file
+    docker build -t <image_name:v.x> .
+        Example:
+            docker build -t b4r-db:21.03 .
 
 # Build an image from a specific Docker file
-docker build -t <image_name:v.x> -f <docker-filename> .
-Example:
-    docker build -t b4r-db:21.03 -f Dockerfile-liquibase .
+    docker build -t <image_name:v.x> -f <docker-filename> .
+        Example:
+            docker build -t b4r-db:21.03 -f Dockerfile-liquibase .
 
 # Enter inside an image using bash
-docker run -it --rm <image_name:v.x> bash
-Example:
-    docker run -it --rm b4r-db:21.03 bash
+    docker run -it --rm <image_name:v.x> bash
+        Example:
+            docker run -it --rm b4r-db:21.03 bash
 
 # Build a container from Pg 11.6
     docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -e PGDATA=/var/lib/postgresql/data/pgdata -v /custom/mount:/var/lib/postgresql/data -p 5432:5432 postgres:11.6
+
+# Build a container and expose a port
+    docker run -d -p <destination_port:source_port> --name <preferred_docker_container_name> <image_name:v.x>
+        Example:
+            docker run -d -p 9090:80 --name nginx nginx:v1
+
+# Docker commands 
+    
+    docker images
+    docker ps
+    docker ps --no-trunc
+    docker ps -a  
+    
+    docker rmi -f <image_id>
+    docker rm -f <container_id>
+    
+# FROM 
+    It is used to call the base of an image 
+        Example:
+            FROM centos
+
+# RUN
+    It is used to run a particular command
+        Example:
+            RUN yum -y install httpd unzip
+            RUN cd /var/www/html/ && unzip code.zip && mv /var/www/html/beginner-html-site-styled-gh-pages/* /var/www/html/
+
+# COPY
+    It is used to copy a folder/file from your local machine into an image
+        Example:
+            COPY html-code /var/www/html
+
+# ADD
+    It is used to add a file from a website
+        Example:
+            ADD https://github.com/mdn/beginner-html-site-styled/archive/gh-pages.zip /var/www/html/code.zip
