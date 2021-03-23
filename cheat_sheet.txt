@@ -13,6 +13,11 @@
         Example:
             docker build -t b4r-db:21.03 -f Dockerfile-liquibase .
 
+# Enter inside a running container
+    docker exec -ti <container_id> bash
+        Example:
+            docker exec -ti apache bash
+
 # Enter inside an image using bash
     docker run -it --rm <image_name:v.x> bash
         Example:
@@ -25,6 +30,11 @@
     docker run -d -p <destination_port:source_port> --name <preferred_docker_container_name> <image_name:v.x>
         Example:
             docker run -d -p 9090:80 --name nginx nginx:v1
+
+# Build an image with argument
+    docker build -t <image_name:version> -f <Dockerfile> --build-arg <argument_var> .
+        Example:
+            docker build apache:v1 -f Dockerfile3 --build-arg user=ricardo .
 
 # Docker commands 
     
@@ -46,6 +56,7 @@
         Example:
             RUN yum -y install httpd unzip
             RUN cd /var/www/html/ && unzip code.zip && mv /var/www/html/beginner-html-site-styled-gh-pages/* /var/www/html/
+            RUN useradd application
 
 # COPY
     It is used to copy a folder/file from your local machine into an image
@@ -56,3 +67,38 @@
     It is used to add a file from a website
         Example:
             ADD https://github.com/mdn/beginner-html-site-styled/archive/gh-pages.zip /var/www/html/code.zip
+
+# ENV
+    It is used to create a variable that can be called somewhere inside a Docker file
+        Example:
+            ENV HTML beginner-html-site-styled
+            sample call $HTML
+
+# WORKDIR
+    It is used to create a working directory without using a command 
+        Example:
+            WORKDIR /var/html/test
+
+# LABEL
+    It is used to put a metadata on an image
+        Example:
+            LABEL maintainer=gene
+            LABEL version=21.03
+
+# USER
+    It is used to switch a user
+        Example:
+            # Need to create a user first
+            RUN useradd application
+            USER application
+            chown application:application html -R
+
+# ARG
+    It used to pass a parameter/argument during building an image
+        EXAMPLE:
+            ARG user:test
+        
+# CMD
+    It is used to call a command and makes a container keep running
+        EXAMPLE:    
+            CMD apachectl -DFOREGROUND
