@@ -102,3 +102,13 @@
     It is used to call a command and makes a container keep running
         EXAMPLE:    
             CMD apachectl -DFOREGROUND
+            
+            
+docker buildx build \
+  -t ba-db \
+  --target builder \
+  --cache-from=type=registry,ref=ba-db-build-cache \
+  --cache-to=type=registry,ref=ba-db-build-cache,mode=max \
+  --push --platform linux/arm64/v8,linux/amd64 \
+  --progress=plain \
+  .
