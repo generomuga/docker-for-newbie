@@ -119,3 +119,5 @@ docker buildx build \
   --target builder \
   --platform linux/arm64/v8,linux/amd64 \
   .
+  
+ sudo docker build --force-rm=true --target builder -t ba-db .
