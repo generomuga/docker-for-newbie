@@ -121,3 +121,13 @@ docker buildx build \
   .
   
  sudo docker build --force-rm=true --target builder -t ba-db .
+
+# Push image to Azure container registry
+# Step 1: Login to ACR
+docker login <your-acr-name>.azurecr.io -u <username> -p <password>
+
+# Step 2: Build and tag the image
+docker build -t <your-acr-name>.azurecr.io/mimir-cycler-data-receiver:latest .
+
+# Step 3: Push the image to ACR
+docker push <your-acr-name>.azurecr.io/mimir-cycler-data-receiver:latest
